@@ -29,12 +29,16 @@ def get_model(model_name: str):
         embeddings = OpenAIEmbeddings()
         return llm, embeddings
 
-
-def main():
-    load_dotenv()
+def get_parser():
     parser = argparse.ArgumentParser(description='Running LangChain')
     parser.add_argument('input', type=str, help='Input to the model')
     parser.add_argument('-l', '--local', action="store_true", help='Run with local model')
+    return parser
+
+
+def main():
+    load_dotenv()
+    parser = get_parser()
     args = parser.parse_args()
 
     model_name = "ollama" if args.local else "openai"
